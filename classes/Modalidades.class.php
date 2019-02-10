@@ -45,6 +45,28 @@ Class Modalidades extends Connection implements CrudModalidades{
         $this->setMensalidade(strtoupper($mensalidade));
    }
 
+   public function dadosTabela($id)
+   {
+     $conn = $this->connect(); 
+    
+     $this->setId($id);
+     $_id =  $this->getId();
+   
+     $sql  = "SELECT * FROM tb_modalidades where id = :id";
+     $stmt = $conn->prepare($sql);
+     $stmt->bindParam(":id", $_id);
+     $stmt->execute();
+     
+     $result = $stmt->fetchAll();
+
+     foreach($result as $values):
+     
+      require_once "../forms/form-edit-mod.php";
+
+   endforeach;
+
+   }
+
    //metodos da interface CrudModalidades
    public function create()
    {    
@@ -91,6 +113,9 @@ Class Modalidades extends Connection implements CrudModalidades{
       echo "<td>$_id</td>";
       echo "<td>$_modalidade</td>"; 
       echo "<td>$_mensalidade</td>"; 
+      echo "<td><a href='edit-mod.php?id=$_id'>Editar</a></td>";
+      echo "<td><a href='/../database/modalidades/delete.php?id=$_id'>Deletar</a></td>";
+      echo "<td><a href='add-mod.php?id=$_id'>Novo aluno</a></td>";
       
       echo "</tr>";
 
@@ -99,12 +124,38 @@ Class Modalidades extends Connection implements CrudModalidades{
    }
    public function update($modalidade, $mensalidade, $id)
    {
+      $conn = $this->connect();
+      $this->setModalidade(strtoupper($modalidade));
+      $this->setMensalidade($mensalidade);
+      $this->setId($id);
 
+      $mod  = $this->getModalidade();
+      $mens = $this->getMensalidade();
+      $_id  = $this->getId();
+
+      $sql  = "UPDATE tb_modalidades set modalidade = :mod, mensalidade = :mens WHERE id = :id";
+      $stmt = $conn->prepare($sql);
+      $stmt->bindParam(':mod', $mod);
+      $stmt->bindParam(":mens", $mens);
+      $stmt->bindParam(":id", $_id);
+      $stmt->execute();
+
+      $destino = header("LOCATION:../../public/modalidades.php");
    }
     
    public function delete($id)
    {
+      $conn = $this->connect();
+      
+      $this->setId($id);
+      $_id = $this->getId();
 
+      $sql  = "DELETE FROM tb_modalidades WHERE id= :id";
+      $stmt = $conn->prepare($sql);
+      $stmt ->bindParam(":id", $_id);
+      $stmt ->execute();
+
+      $destino = header("LOCATION:../../public/modalidades.php");
 
    }
 }

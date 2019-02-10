@@ -1,5 +1,6 @@
 <?php 
 require_once'../config/header.inc.html'; 
+session_start();
 ?>
 
 <div class="row-container">
@@ -20,13 +21,12 @@ require_once'../config/header.inc.html';
          endif;
         ?>
 </div>
-
          <div class="row container">
          <div class="col s12">
             <h5 class="light">Modalidades Cadastradas</h5><hr>
             <table class="striped">
                 <thread>
-                 <tr><th>ID</th><th>Modalidade</th><th>Mensalidade</th>   
+                 <tr><th>ID</th><th>Modalidade</th><th>Mensalidade</th><th>Ações</th><th></th><th></th>   
                 </thread>
                  <tbody> 
                  <?php
@@ -35,7 +35,6 @@ require_once'../config/header.inc.html';
                 </tbody>
             
             </table>
-
          </div>
          </div>
 
