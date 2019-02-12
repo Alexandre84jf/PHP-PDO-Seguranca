@@ -115,7 +115,7 @@ Class Modalidades extends Connection implements CrudModalidades{
       echo "<td>$_mensalidade</td>"; 
       echo "<td><a href='edit-mod.php?id=$_id'>Editar</a></td>";
       echo "<td><a href='/../database/modalidades/delete.php?id=$_id'>Deletar</a></td>";
-      echo "<td><a href='add-mod.php?id=$_id'>Novo aluno</a></td>";
+      echo "<td><a href='new-aluno.php?id=$_id'>Novo aluno</a></td>";
       
       echo "</tr>";
 
